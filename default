@@ -1,0 +1,11 @@
+default menu.c32
+prompt 0
+timeout 300
+ONTIMEOUT local
+
+menu title ########## PXE Boot Menu ##########
+
+label 1
+menu label ^1) Install Centos 8
+kernel centos8/vmlinuz
+append initrd=centos8/initrd.img method=ftp://192.168.0.2/pub devfs=nomount
