@@ -5,10 +5,19 @@ Vagrant.configure("2") do |config|
 		config.vbguest.auto_update = false
 		config.vbguest.no_remote = true
 	end
+
+	 config.vm.define :cliente do |cliente|
+		 cliente.vm.box = "centos/stream8"
+		 cliente.vm.network :private_network, ip: "192.168.50.2"
+		 cliente.vm.hostname = "cliente"
+		 #cliente.vm.synced_folder ".", "/temp"
+	 end
  
-	 config.vm.define :servidorpxe do |servidorpxe|
-		servidorpxe.vm.box = "centos/stream8"
-		servidorpxe.vm.network :private_network, ip: "192.168.0.2"
-		servidorpxe.vm.hostname = "servidorpxe"
+	 config.vm.define :servidor do |servidor|
+		servidor.vm.box = "centos/stream8"
+		servidor.vm.network :private_network, ip: "192.168.50.3"
+		servidor.vm.hostname = "servidor"
+		servidor.vm.network "forwarded_port", guest: 80, host: 8090,
+			auto_correct: true
 	 end
 end
